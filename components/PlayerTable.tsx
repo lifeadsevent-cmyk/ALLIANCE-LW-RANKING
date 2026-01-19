@@ -12,47 +12,46 @@ interface PlayerTableProps {
 const PlayerTable: React.FC<PlayerTableProps> = ({ players, title, icon, variant }) => {
   const accentColor = variant === 'alpha' ? 'text-orange-500' : variant === 'bravo' ? 'text-blue-500' : 'text-cyan-500';
   const borderColor = variant === 'alpha' ? 'border-orange-500/30' : variant === 'bravo' ? 'border-blue-500/30' : 'border-slate-800';
-  const headerBg = variant === 'alpha' ? 'bg-orange-950/20' : variant === 'bravo' ? 'bg-blue-950/20' : 'bg-slate-800';
+  const headerBg = variant === 'alpha' ? 'bg-orange-950/40' : variant === 'bravo' ? 'bg-blue-950/40' : 'bg-slate-800';
+  const itemHover = variant === 'alpha' ? 'hover:bg-orange-500/5' : variant === 'bravo' ? 'hover:bg-blue-500/5' : 'hover:bg-cyan-500/5';
 
   return (
-    <div className={`bg-slate-900 rounded-xl shadow-lg overflow-hidden border ${borderColor} mb-8`}>
-      <div className={`${headerBg} px-6 py-4 flex items-center justify-between border-b ${borderColor}`}>
-        <h2 className="text-slate-100 font-bold text-xl flex items-center gap-3 text-sm md:text-xl">
+    <div className={`bg-slate-900 rounded-md shadow-lg overflow-hidden border ${borderColor} mb-2`}>
+      {/* Header compact */}
+      <div className={`${headerBg} px-3 py-1.5 flex items-center justify-between border-b ${borderColor}`}>
+        <h2 className="text-slate-100 font-black text-[11px] flex items-center gap-1.5 uppercase tracking-tight">
           <i className={`fa-solid ${icon} ${accentColor}`}></i>
           {title}
         </h2>
-        <span className="bg-slate-800 text-slate-400 px-3 py-1 rounded-full text-[10px] font-black uppercase">
-          {players.length} ACTIFS
+        <span className="text-slate-500 text-[8px] font-black uppercase">
+          {players.length}U
         </span>
       </div>
-      <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse">
-          <thead>
-            <tr className="bg-slate-900/50 text-slate-500 border-b border-slate-800">
-              <th className="px-6 py-4 font-black text-[10px] uppercase tracking-[0.2em]">Pseudo</th>
-              <th className="px-6 py-4 font-black text-[10px] uppercase tracking-[0.2em] text-right">Puissance</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-800/50">
-            {players.map((player) => (
-              <tr key={player.rank} className="hover:bg-slate-800/30 transition-colors duration-150 group">
-                <td className="px-6 py-4">
-                  <div className="flex items-center gap-3">
-                    <span className="text-[10px] font-mono text-slate-600">#{player.rank}</span>
-                    <span className="font-bold text-slate-200 group-hover:text-white transition-colors uppercase tracking-tight">
-                      {player.name}
-                    </span>
-                  </div>
-                </td>
-                <td className="px-6 py-4 text-right">
-                  <span className={`font-black font-mono ${accentColor}`}>
-                    {player.power.toLocaleString('fr-FR')}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+
+      {/* Grid Display: 2 Players per row */}
+      <div className="grid grid-cols-2 divide-x divide-y divide-slate-800/30">
+        {players.map((player) => (
+          <div 
+            key={player.rank} 
+            className={`flex items-center justify-between px-2 py-1.5 ${itemHover} transition-colors group min-w-0`}
+          >
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span className="text-[7px] font-mono text-slate-700 flex-shrink-0">#{player.rank}</span>
+              <span className="font-bold text-slate-300 text-[9px] uppercase truncate group-hover:text-white transition-colors">
+                {player.name}
+              </span>
+            </div>
+            <div className="flex-shrink-0 pl-1 text-right">
+              <span className={`font-bold font-mono text-[9px] ${accentColor}`}>
+                {Math.floor(player.power / 1000)}k
+              </span>
+            </div>
+          </div>
+        ))}
+        {/* Fill empty grid spot if odd number of players */}
+        {players.length % 2 !== 0 && (
+          <div className="bg-slate-900/50"></div>
+        )}
       </div>
     </div>
   );

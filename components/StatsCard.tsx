@@ -10,39 +10,30 @@ interface StatsCardProps {
 }
 
 const StatsCard: React.FC<StatsCardProps> = ({ title, stats, colorClass, icon }) => {
-  // Extract colors from tailwind classes provided
   const isAlpha = title.includes('ALPHA');
   const accentColor = isAlpha ? 'text-orange-500' : 'text-blue-500';
   const progressColor = isAlpha ? 'bg-orange-500' : 'bg-blue-500';
   const borderColor = isAlpha ? 'border-orange-500' : 'border-blue-500';
 
   return (
-    <div className={`bg-slate-900 rounded-xl shadow-xl border-t-2 ${borderColor} p-6 flex items-start gap-4 transition-transform hover:translate-y-[-4px]`}>
-      <div className={`p-3 rounded-xl bg-slate-800 flex items-center justify-center border border-slate-700`}>
-        <i className={`fa-solid ${icon} text-xl ${accentColor}`}></i>
+    <div className={`bg-slate-900 rounded-lg border-t-2 ${borderColor} p-3 flex items-center gap-3 shadow-md`}>
+      <div className={`p-2 rounded bg-slate-800 border border-slate-700 hidden sm:flex`}>
+        <i className={`fa-solid ${icon} text-sm ${accentColor}`}></i>
       </div>
-      <div className="flex-1">
-        <h3 className="text-slate-500 text-[10px] font-black uppercase tracking-[0.2em] mb-1">{title}</h3>
-        <div className="flex items-baseline justify-between">
-          <span className="text-2xl font-black text-slate-100">{stats.totalForce.toLocaleString('fr-FR')} <span className="text-xs text-slate-600 font-normal">PTS</span></span>
-          <span className={`text-lg font-black ${accentColor}`}>{stats.percentage}%</span>
+      <div className="flex-1 min-w-0">
+        <div className="flex justify-between items-center mb-0.5">
+          <h3 className="text-slate-500 text-[8px] font-black uppercase tracking-tighter truncate">{title}</h3>
+          <span className={`text-[10px] font-black ${accentColor}`}>{stats.percentage}%</span>
         </div>
-        <div className="mt-4 space-y-3">
-          <div className="flex items-center justify-between text-xs font-bold">
-            <div className="flex items-center gap-2 text-slate-400">
-              <i className="fa-solid fa-users"></i>
-              <span>{stats.playerCount} Membres</span>
-            </div>
-            <div className="text-slate-500">
-              {stats.avgDonations.toLocaleString('fr-FR')} <span className="font-normal opacity-50">dons/avg</span>
-            </div>
-          </div>
-          <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-            <div 
-              className={`h-full ${progressColor} shadow-[0_0_8px_rgba(0,0,0,0.5)] transition-all duration-1000`} 
-              style={{ width: `${stats.percentage}%` }}
-            />
-          </div>
+        <div className="flex items-baseline gap-1">
+          <span className="text-base font-black text-slate-100">{stats.totalForce.toLocaleString('fr-FR')}</span>
+          <span className="text-[8px] text-slate-600 uppercase font-bold">pts</span>
+        </div>
+        <div className="w-full bg-slate-800 h-1 rounded-full mt-1 overflow-hidden">
+          <div 
+            className={`h-full ${progressColor} transition-all duration-1000`} 
+            style={{ width: `${stats.percentage}%` }}
+          />
         </div>
       </div>
     </div>
