@@ -10,7 +10,7 @@ import StatsCard from './components/StatsCard';
 const App: React.FC = () => {
   const [players, setPlayers] = useState<Player[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [activeView, setActiveView] = useState<ViewType>('UNITS');
+  const [activeView, setActiveView] = useState<ViewType>('RANKING');
 
   useEffect(() => {
     const distributed = distributeTeams(RAW_PLAYERS_DATA);
@@ -27,35 +27,36 @@ const App: React.FC = () => {
   const bravoSubs = players.filter(p => p.team === TeamType.SUBSTITUTE_BRAVO);
 
   if (!isLoaded) return (
-    <div className="min-h-screen bg-emerald-50 flex items-center justify-center">
-      <div className="text-emerald-600 text-2xl animate-pulse font-bold flex flex-col items-center gap-4">
-        <i className="fa-solid fa-compass-drafting fa-spin text-4xl"></i>
-        CHARGEMENT DES DONNÉES...
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+      <div className="text-cyan-500 text-2xl animate-pulse font-black flex flex-col items-center gap-4 tracking-tighter">
+        <i className="fa-solid fa-microchip fa-spin text-5xl mb-2"></i>
+        SYNCING DATABASE...
       </div>
     </div>
   );
 
   return (
-    <div className="min-h-screen pb-12">
+    <div className="min-h-screen pb-12 bg-slate-950">
       {/* Header Section */}
-      <header className="bg-emerald-950 text-white pt-12 pb-24 px-6 shadow-2xl relative overflow-hidden">
-        {/* Background elements */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-800/20 rounded-full -mr-48 -mt-48 blur-3xl"></div>
-        <div className="absolute top-0 left-1/4 w-[300px] h-[300px] bg-emerald-400/10 rounded-full blur-3xl"></div>
+      <header className="bg-slate-900 text-white pt-12 pb-24 px-6 border-b border-slate-800 relative overflow-hidden">
+        {/* Background Decorative Tech Elements */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-cyan-900/10 rounded-full -mr-48 -mt-48 blur-[120px]"></div>
+        <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-indigo-900/10 rounded-full blur-[100px]"></div>
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
         
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <span className="bg-emerald-500 text-emerald-950 px-3 py-1 rounded text-xs font-black uppercase tracking-widest">Opération Alpha-Bravo</span>
-                <span className="text-emerald-500/50">|</span>
-                <span className="text-emerald-400 text-xs font-bold font-mono">STATUS: OPTIMAL</span>
+                <span className="bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded text-[10px] font-black uppercase tracking-[0.2em]">Alpha-Bravo Protocol</span>
+                <span className="text-slate-700">|</span>
+                <span className="text-emerald-500 text-[10px] font-black font-mono animate-pulse">● SYSTEM ONLINE</span>
               </div>
-              <h1 className="text-5xl font-black tracking-tighter leading-none uppercase">
-                Tactique <span className="text-emerald-400 italic">Guilde</span>
+              <h1 className="text-6xl font-black tracking-tighter leading-none uppercase">
+                Tactical <span className="text-cyan-500">Neural</span> Hub
               </h1>
-              <p className="text-emerald-200/60 text-lg font-medium max-w-xl">
-                Système avancé de répartition des forces et analyse de puissance en temps réel.
+              <p className="text-slate-400 text-lg font-medium max-w-xl">
+                Centre de commandement avancé. Analyse de puissance et déploiement stratégique des unités d'élite.
               </p>
             </div>
           </div>
@@ -64,28 +65,28 @@ const App: React.FC = () => {
 
       {/* Navigation Tabs */}
       <nav className="max-w-7xl mx-auto px-6 -mt-10 relative z-30">
-        <div className="bg-white/90 backdrop-blur-md p-2 rounded-2xl shadow-lg border border-emerald-100 flex gap-2">
-          <button 
-            onClick={() => setActiveView('UNITS')}
-            className={`flex-1 py-4 px-6 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-2 ${
-              activeView === 'UNITS' 
-              ? 'bg-emerald-600 text-white shadow-md' 
-              : 'text-emerald-800 hover:bg-emerald-50'
-            }`}
-          >
-            <i className="fa-solid fa-users-gear"></i>
-            UNITÉS DE COMBAT
-          </button>
+        <div className="bg-slate-900/80 backdrop-blur-xl p-1.5 rounded-2xl shadow-2xl border border-slate-800 flex gap-2">
           <button 
             onClick={() => setActiveView('RANKING')}
-            className={`flex-1 py-4 px-6 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-2 ${
+            className={`flex-1 py-4 px-6 rounded-xl font-black text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-3 ${
               activeView === 'RANKING' 
-              ? 'bg-emerald-600 text-white shadow-md' 
-              : 'text-emerald-800 hover:bg-emerald-50'
+              ? 'bg-cyan-600 text-white shadow-[0_0_20px_rgba(8,145,178,0.3)] ring-1 ring-cyan-400/50' 
+              : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800'
             }`}
           >
             <i className="fa-solid fa-list-ol"></i>
-            CLASSEMENT GÉNÉRAL
+            Classement Général
+          </button>
+          <button 
+            onClick={() => setActiveView('UNITS')}
+            className={`flex-1 py-4 px-6 rounded-xl font-black text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-3 ${
+              activeView === 'UNITS' 
+              ? 'bg-cyan-600 text-white shadow-[0_0_20px_rgba(8,145,178,0.3)] ring-1 ring-cyan-400/50' 
+              : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800'
+            }`}
+          >
+            <i className="fa-solid fa-users-gear"></i>
+            Unités de Combat
           </button>
         </div>
       </nav>
@@ -93,64 +94,65 @@ const App: React.FC = () => {
       {/* Main View Area */}
       <main className="max-w-7xl mx-auto px-6 mt-12 relative z-20">
         
-        {activeView === 'UNITS' ? (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+        {activeView === 'RANKING' ? (
+          <div className="animate-in fade-in slide-in-from-bottom-6 duration-700">
+            <RankingTable players={players} />
+          </div>
+        ) : (
+          <div className="animate-in fade-in slide-in-from-bottom-6 duration-700">
             {/* Stats Summary */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
               <StatsCard 
-                title="UNITÉ ALPHA (A)" 
+                title="UNITÉ ALPHA (STRIKE)" 
                 stats={alphaStats} 
-                colorClass="border-orange-500 bg-orange-500" 
+                colorClass="border-orange-500" 
                 icon="fa-fire-flame-curved"
               />
               <StatsCard 
-                title="UNITÉ BRAVO (B)" 
+                title="UNITÉ BRAVO (DEFENSE)" 
                 stats={bravoStats} 
-                colorClass="border-blue-500 bg-blue-500" 
+                colorClass="border-blue-500" 
                 icon="fa-shield-halved"
               />
             </div>
 
             {/* Units Tables */}
             <div className="space-y-12">
-              <PlayerTable title="UNITÉ ALPHA — FORCE DE FRAPPE" icon="fa-person-military-pointing" players={alphaPlayers} />
-              <PlayerTable title="UNITÉ BRAVO — SOUTIEN TACTIQUE" icon="fa-user-shield" players={bravoPlayers} />
+              <PlayerTable title="DÉPLOIEMENT ALPHA" icon="fa-person-military-pointing" players={alphaPlayers} variant="alpha" />
+              <PlayerTable title="DÉPLOIEMENT BRAVO" icon="fa-user-shield" players={bravoPlayers} variant="bravo" />
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                <PlayerTable title="REMPLAÇANTS ALPHA" icon="fa-clock" players={alphaSubs} />
-                <PlayerTable title="REMPLAÇANTS BRAVO" icon="fa-clock" players={bravoSubs} />
+                <PlayerTable title="SUB ALPHA" icon="fa-clock" players={alphaSubs} variant="alpha" />
+                <PlayerTable title="SUB BRAVO" icon="fa-clock" players={bravoSubs} variant="bravo" />
               </div>
             </div>
-          </div>
-        ) : (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <RankingTable players={players} />
           </div>
         )}
 
         {/* Global Stats Footer */}
-        <div className="mt-20 bg-emerald-950 rounded-[2rem] p-12 text-white shadow-2xl relative overflow-hidden">
-          <div className="absolute bottom-0 right-0 p-8 opacity-10">
-            <i className="fa-solid fa-shield-cat text-9xl"></i>
+        <div className="mt-24 bg-slate-900 rounded-[2.5rem] p-12 text-white shadow-2xl border border-slate-800 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
+          <div className="absolute bottom-0 right-0 p-12 opacity-[0.02]">
+            <i className="fa-solid fa-network-wired text-[15rem]"></i>
           </div>
-          <div className="relative z-10 text-center space-y-8">
-            <h3 className="text-3xl font-black">ANALYSE GLOBALE DU RÉSEAU</h3>
+          <div className="relative z-10 space-y-12">
+            <h3 className="text-2xl font-black text-center uppercase tracking-[0.5em] text-slate-500">Alliance Analytics</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
-              <div className="space-y-2">
-                <p className="text-emerald-400 text-xs font-black uppercase tracking-widest">Total Force</p>
-                <p className="text-4xl font-black tracking-tighter">{(alphaStats.totalForce + bravoStats.totalForce).toLocaleString('fr-FR')}</p>
+              <div className="space-y-2 text-center">
+                <p className="text-cyan-500 text-[10px] font-black uppercase tracking-widest">Global Force</p>
+                <p className="text-5xl font-black tracking-tighter text-slate-100">{(alphaStats.totalForce + bravoStats.totalForce).toLocaleString('fr-FR')}</p>
               </div>
-              <div className="space-y-2">
-                <p className="text-emerald-400 text-xs font-black uppercase tracking-widest">Membres Actifs</p>
-                <p className="text-4xl font-black tracking-tighter">40</p>
+              <div className="space-y-2 text-center">
+                <p className="text-cyan-500 text-[10px] font-black uppercase tracking-widest">Active Operatives</p>
+                <p className="text-5xl font-black tracking-tighter text-slate-100">40</p>
               </div>
-              <div className="space-y-2">
-                <p className="text-emerald-400 text-xs font-black uppercase tracking-widest">Effectif Réserve</p>
-                <p className="text-4xl font-black tracking-tighter">{players.length - 40}</p>
+              <div className="space-y-2 text-center">
+                <p className="text-cyan-500 text-[10px] font-black uppercase tracking-widest">Reserve Pool</p>
+                <p className="text-5xl font-black tracking-tighter text-slate-100">{players.length - 40}</p>
               </div>
-              <div className="space-y-2">
-                <p className="text-emerald-400 text-xs font-black uppercase tracking-widest">Donations 24h</p>
-                <p className="text-4xl font-black tracking-tighter">{(players.reduce((acc, p) => acc + p.donations, 0)).toLocaleString('fr-FR')}</p>
+              <div className="space-y-2 text-center">
+                <p className="text-cyan-500 text-[10px] font-black uppercase tracking-widest">Daily Contribution</p>
+                <p className="text-5xl font-black tracking-tighter text-slate-100">{(players.reduce((acc, p) => acc + p.donations, 0)).toLocaleString('fr-FR')}</p>
               </div>
             </div>
           </div>
@@ -158,13 +160,13 @@ const App: React.FC = () => {
       </main>
 
       <footer className="mt-24 pb-12 text-center">
-        <div className="flex justify-center gap-6 mb-4 text-emerald-800/30">
-          <i className="fa-solid fa-terminal"></i>
-          <i className="fa-solid fa-microchip"></i>
-          <i className="fa-solid fa-satellite"></i>
+        <div className="flex justify-center gap-8 mb-6 text-slate-800">
+          <i className="fa-solid fa-terminal hover:text-cyan-500 transition-colors cursor-help"></i>
+          <i className="fa-solid fa-microchip hover:text-cyan-500 transition-colors cursor-help"></i>
+          <i className="fa-solid fa-satellite-dish hover:text-cyan-500 transition-colors cursor-help"></i>
         </div>
-        <p className="text-emerald-900/40 font-black text-[10px] uppercase tracking-[0.3em]">
-          &copy; 2024 OPS-CENTER // ALLIANCE STRATÉGIQUE // TOUS DROITS RÉSERVÉS
+        <p className="text-slate-600 font-bold text-[9px] uppercase tracking-[0.4em]">
+          &copy; MMXXIV NEURAL-OPS // STRATEGIC ALLIANCE // ENCRYPTED CONNECTION
         </p>
       </footer>
     </div>
