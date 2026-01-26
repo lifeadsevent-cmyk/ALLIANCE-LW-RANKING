@@ -1,5 +1,5 @@
 {
   "name": "Gestionnaire d'Unités de Combat - Thème Vert",
-  "description": "Une application de gestion de guilde pour répartir les joueurs en Unités Alpha et Bravo selon leur force de frappe, avec un système de remplaçants et un tableau de bord analytique complet.",
+  "description": "Une application de gestion de guilde pour répartir les commandants en Unités Alpha et Bravo selon leur force de frappe, avec un système de remplaçants et un tableau de bord analytique complet.",
   "requestFramePermissions": []
 }
