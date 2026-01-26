@@ -28,15 +28,13 @@
   </head>
   <body class="bg-slate-950 text-slate-100">
     <div id="root">
-      <h1 class="text-3xl text-center mt-10">Test - Site fonctionnel</h1>
-      <p class="text-center text-slate-400 mt-4">Si vous voyez ce texte, l'HTML charge correctement.</p>
+      <!-- React va remplacer ce contenu -->
+      <div class="text-center mt-10">
+        <p class="text-slate-400">Chargement de l'application...</p>
+      </div>
     </div>
     
-    <!-- TEST SIMPLE - SUPPRIMEZ L'ANCIEN SCRIPT -->
-    <script type="module">
-      console.log("Test - HTML loaded successfully");
-      document.getElementById('root').innerHTML += 
-        '<p class="text-center text-green-400 mt-4">JavaScript fonctionne aussi !</p>';
-    </script>
+    <!-- POINT D'ENTRÉE REACT -->
+    <script type="module" src="./src/index.tsx"></script>
   </body>
 </html>
