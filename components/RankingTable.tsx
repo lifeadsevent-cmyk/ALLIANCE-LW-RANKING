@@ -6,7 +6,6 @@ interface RankingTableProps {
 }
 
 const RankingTable: React.FC<RankingTableProps> = ({ players }) => {
-  // Tri par Score Power (finalScore) descendant
   const sortedPlayers = useMemo(() => {
     return [...players].sort((a, b) => b.finalScore - a.finalScore);
   }, [players]);
@@ -14,43 +13,80 @@ const RankingTable: React.FC<RankingTableProps> = ({ players }) => {
   const getTeamBadge = (team: TeamType) => {
     switch (team) {
       case TeamType.ALPHA:
-        return <span className="bg-orange-500/10 text-orange-500 px-3 py-1 rounded-md text-[9px] font-black border border-orange-500/20 tracking-widest uppercase">ALPHA</span>;
+        return <span className="bg-orange-500/10 text-orange-500 px-2 md:px-3 py-1 rounded-md text-[9px] font-black border border-orange-500/20 tracking-widest uppercase">ALPHA</span>;
       case TeamType.BRAVO:
-        return <span className="bg-sky-500/10 text-sky-400 px-3 py-1 rounded-md text-[9px] font-black border border-sky-500/20 tracking-widest uppercase">BRAVO</span>;
+        return <span className="bg-sky-500/10 text-sky-400 px-2 md:px-3 py-1 rounded-md text-[9px] font-black border border-sky-500/20 tracking-widest uppercase">BRAVO</span>;
       case TeamType.SUBSTITUTE_ALPHA:
       case TeamType.SUBSTITUTE_BRAVO:
-        return <span className="bg-slate-800 text-slate-400 px-3 py-1 rounded-md text-[9px] font-black border border-slate-700 tracking-widest uppercase">REMP</span>;
+        return <span className="bg-slate-800 text-slate-400 px-2 md:px-3 py-1 rounded-md text-[9px] font-black border border-slate-700 tracking-widest uppercase">REMP</span>;
       default:
-        return <span className="bg-slate-800/30 text-slate-600 px-3 py-1 rounded-md text-[9px] font-black tracking-widest uppercase">RÉSERVE</span>;
+        return <span className="bg-slate-800/30 text-slate-600 px-2 md:px-3 py-1 rounded-md text-[9px] font-black tracking-widest uppercase">RÉSERVE</span>;
     }
   };
 
   return (
-    <div className="bg-slate-900/40 backdrop-blur-sm rounded-[2rem] shadow-2xl overflow-hidden border border-slate-800/50">
-      <div className="bg-slate-800/20 px-10 py-8 border-b border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
+    <div className="bg-slate-900/40 backdrop-blur-sm rounded-xl md:rounded-[2rem] shadow-2xl overflow-hidden border border-slate-800/50">
+      {/* Header adaptable */}
+      <div className="bg-slate-800/20 px-4 md:px-10 py-6 md:py-8 border-b border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="space-y-1 text-center md:text-left">
-          <h2 className="text-white text-2xl font-black flex items-center gap-4 italic uppercase tracking-tighter">
+          <h2 className="text-white text-xl md:text-2xl font-black flex items-center justify-center md:justify-start gap-3 italic uppercase tracking-tighter">
             <i className="fa-solid fa-ranking-star text-emerald-400"></i>
             Analyse Comparative
           </h2>
-          <p className="text-emerald-500/40 text-[10px] uppercase tracking-[0.2em] font-black">
-            Données Tactiques Consolidées // {players.length} Unités Actives
+          <p className="text-emerald-500/40 text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-black">
+            Données Tactiques Consolidées // {players.length} Unités
           </p>
         </div>
-        <div className="bg-slate-950/80 px-6 py-3 rounded-2xl border border-slate-800/50 shadow-inner">
-           <div className="flex items-center gap-4 divide-x divide-slate-800">
-              <div className="text-center pr-4">
-                 <span className="block text-[8px] font-black text-slate-500 uppercase mb-0.5">Moyenne Hebdo</span>
-                 <span className="text-emerald-400 font-black text-lg">39 138</span>
+        
+        {/* Stats rapides en-tête */}
+        <div className="bg-slate-950/80 px-4 py-3 rounded-xl border border-slate-800/50 shadow-inner w-full md:w-auto">
+           <div className="flex items-center justify-around md:justify-start gap-4 md:divide-x md:divide-slate-800">
+              <div className="text-center md:pr-4">
+                 <span className="block text-[8px] font-black text-slate-500 uppercase mb-0.5">Moyenne</span>
+                 <span className="text-emerald-400 font-black text-base md:text-lg tracking-tight">39 138</span>
               </div>
-              <div className="text-center pl-4">
+              <div className="text-center md:pl-4">
                  <span className="block text-[8px] font-black text-slate-500 uppercase mb-0.5">Top Score</span>
-                 <span className="text-amber-400 font-black text-lg">{sortedPlayers[0]?.finalScore.toFixed(0)}</span>
+                 <span className="text-amber-400 font-black text-base md:text-lg tracking-tight">{sortedPlayers[0]?.finalScore.toFixed(0)}</span>
               </div>
            </div>
         </div>
       </div>
-      <div className="overflow-x-auto">
+
+      {/* VUE MOBILE : Liste de cartes */}
+      <div className="block md:hidden">
+        <div className="divide-y divide-slate-800/50">
+          {sortedPlayers.map((player, index) => (
+            <div key={`${player.name}-${player.rank}`} className="p-4 flex items-center justify-between hover:bg-emerald-500/[0.03] active:bg-emerald-500/[0.05] transition-colors">
+              <div className="flex items-center gap-4 min-w-0">
+                <div className={`
+                    flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-lg font-black text-xs
+                    ${index === 0 ? 'bg-amber-500 text-amber-950 shadow-[0_0_10px_rgba(245,158,11,0.3)]' : 
+                      index === 1 ? 'bg-slate-300 text-slate-950' : 
+                      index === 2 ? 'bg-orange-400 text-orange-950' : 
+                      'text-slate-600 border border-slate-800'}
+                  `}>
+                  {index + 1}
+                </div>
+                <div className="flex flex-col min-w-0">
+                  <span className="font-black text-slate-200 uppercase text-xs truncate tracking-tight">{player.name}</span>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    <span className="text-[9px] text-emerald-500/60 font-black tracking-widest">{player.finalScore.toFixed(1)} PTS</span>
+                    <span className="text-slate-700">•</span>
+                    <span className="text-[9px] text-slate-600 font-bold uppercase tracking-tighter">UID:{player.rank}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col items-end gap-2">
+                {getTeamBadge(player.team)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* VUE DESKTOP : Tableau complet */}
+      <div className="hidden md:block overflow-x-auto">
         <table className="w-full text-left border-collapse min-w-[1000px]">
           <thead>
             <tr className="bg-slate-950/30 text-slate-500 border-b border-slate-800">
