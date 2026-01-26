@@ -1,49 +1,39 @@
 <!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gestionnaire d'Unités - Dark Mode</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: #0f172a;
-        color: #f1f5f9;
-        margin: 0;
-        padding: 0;
-      }
-      #root {
-        min-height: 100vh;
-        padding: 20px;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="root">
-      <div style="text-align: center; margin-top: 100px; color: #94a3b8;">
-        <p>Chargement...</p>
-      </div>
-    </div>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Vercel - JavaScript</title>
+</head>
+<body>
+    <h1 id="message">Test en cours...</h1>
+    <p id="status">Vérification JavaScript...</p>
     
-    <!-- SCRIPT INLINE POUR TESTER -->
-    <script type="module">
-      console.log("Test script executing...");
-      const root = document.getElementById('root');
-      if (root) {
-        root.innerHTML = `
-          <div style="text-align: center; margin-top: 100px;">
-            <h1 style="color: #10b981; font-size: 2rem;">
-              ✅ Script JavaScript fonctionne !
-            </h1>
-            <p style="color: #94a3b8; margin-top: 20px;">
-              Prochaine étape : charger React
-            </p>
-          </div>
-        `;
-        console.log("Page updated successfully");
-      }
+    <script>
+        console.log("=== TEST SCRIPT STARTING ===");
+        
+        // Test 1: Modifier le DOM
+        document.getElementById('message').textContent = "✅ JavaScript fonctionne !";
+        document.getElementById('status').textContent = "DOM modifié avec succès";
+        
+        // Test 2: Style
+        document.body.style.backgroundColor = "#0f172a";
+        document.body.style.color = "white";
+        document.body.style.textAlign = "center";
+        document.body.style.paddingTop = "100px";
+        document.body.style.fontFamily = "Arial, sans-serif";
+        
+        // Test 3: Log
+        console.log("All tests passed");
+        console.log("User Agent:", navigator.userAgent);
+        
+        // Afficher plus d'infos
+        setTimeout(() => {
+            document.getElementById('status').innerHTML = 
+                "JavaScript actif<br>" +
+                "Navigateur: " + navigator.userAgent.substring(0, 50) + "<br>" +
+                "Date: " + new Date().toLocaleString();
+        }, 1000);
     </script>
-  </body>
+</body>
 </html>
