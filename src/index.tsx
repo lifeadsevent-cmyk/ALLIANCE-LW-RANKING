@@ -1,16 +1,22 @@
-// src/index.tsx
-console.log("React loading...");
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 
-// Marquer que React est chargé
-window.ReactLoaded = true;
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
 
-const root = document.getElementById('root');
-if (root) {
-    root.innerHTML = `
-        <div style="margin-top: 30px; padding: 30px; background: rgba(16, 185, 129, 0.1); border-radius: 15px; border: 2px solid #10b981;">
-            <h2 style="color: #10b981; margin-bottom: 15px;">✅ React fonctionne !</h2>
-            <p>Date: ${new Date().toLocaleString()}</p>
-            <p>Version: Étape 25</p>
-        </div>
-    `;
-}
+root.render(
+  <React.StrictMode>
+    <div style={{
+      textAlign: 'center',
+      padding: '100px',
+      background: '#0f172a',
+      color: 'white',
+      minHeight: '100vh'
+    }}>
+      <h1 style={{ color: '#10b981' }}>✅ Application React Fonctionne !</h1>
+      <p>Vercel déploiement réussi</p>
+      <p>{new Date().toLocaleString()}</p>
+    </div>
+  </React.StrictMode>
+);
